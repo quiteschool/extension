@@ -1,0 +1,11 @@
+{
+  "app_reload": {
+    "message": "Пересчитать",
+    "description": "Reload button text"
+  },
+
+  "app_loading": {
+    "message": "Загрузка...",
+    "description": "Spinner text while loading data"
+  }
+}

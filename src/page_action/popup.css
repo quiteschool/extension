@@ -1,0 +1,72 @@
+#mainPopup {
+  padding: 10px;
+  height: 200px;
+  width: 600px;
+  font-family: Helvetica, Ubuntu, Arial, sans-serif;
+  position: relative;
+  overflow: scroll;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+.reload-header {
+  position: sticky;
+  height: 30px;
+  border-bottom: 1px solid #eee;
+  width: 100%;
+}
+
+.loaded-content-list {
+  display: table;
+  font-size: 14px;
+  line-height: 1.2;
+  margin-top: 50px;
+}
+
+.loaded-content-list div {
+  display: table-row;
+}
+
+.loaded-content-list span {
+  display: table-cell;
+  padding: 5px 10px;
+  text-align: right;
+  border-bottom: 1px solid #eee;
+}
+
+.reload-header-button {
+  float: right;
+  font-size: 1.2em;
+  text-align: center;
+  padding: 5px 20px;
+  margin: 10px;
+  border: 1px solid;
+  text-decoration: none;
+}
+
+.reload-header-button:active,
+.reload-header-button:focus,
+.reload-header-button:hover {
+  text-decoration: underline;
+}
+
+.loaded-content {
+  display: none;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loaded .loading {
+  display: none;
+}
+
+.loaded .loaded-content {
+  display: initial;
+}

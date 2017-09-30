@@ -1,0 +1,33 @@
+{
+  "name": "Оценки",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description":  "Количество оценок в четверти",
+  "homepage_url": "https://mathfeed.ml",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "page": "src/bg/background.html",
+    "persistent": true
+  },
+  "page_action": {
+    "default_icon": "icons/icon19.png",
+    "default_title": "Сводная таблица",
+    "default_popup": "src/page_action/page_action.html"
+  },
+  "permissions": [],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://edu.tatar.ru/school/journal*"
+      ],
+      "js": [
+        "src/inject/inject.js"
+      ]
+    }
+  ]
+}
