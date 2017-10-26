@@ -1,19 +1,23 @@
-var INDEX_POSITION = 1;
-var NAME_POSITION = 2;
+var NAME_POSITION = 0;
 
 function calculateAmount(values) {
   return values.filter(function(value) { if (parseInt(value)) return true }).length - 1
 }
 
 function calculateAmountOverStudents(domElement, students) {
-  domElement.querySelectorAll(".table tbody tr").forEach(function(student) {
-    var value = student.textContent.split("\n");
-    var data = students[parseInt(value[INDEX_POSITION])]
+  domElement.querySelectorAll(".table tbody tr").forEach(function(student, index) {
+    var value = []
+
+    student.querySelectorAll('.fio, .mark').forEach(function(mark) {
+      value = value.concat(mark.textContent.split("\n"))
+    })
+
+    var data = students[index + 1]
 
     if (data) {
       data.amount += calculateAmount(value.slice(NAME_POSITION + 1));
     } else {
-      students[parseInt(value[INDEX_POSITION])] = {
+      students[index + 1] = {
         name: value[NAME_POSITION],
         amount: calculateAmount(value.slice(NAME_POSITION + 1))
       };
