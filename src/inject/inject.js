@@ -1,6 +1,6 @@
-var NAME_POSITION = 0;
-
+var NAME_POSITION = 1;
 function calculateAmount(values) {
+
   return values.filter(function(value) { if (parseInt(value)) return true }).length - 1
 }
 
@@ -13,13 +13,14 @@ function calculateAmountOverStudents(domElement, students) {
     })
 
     var data = students[index + 1]
+    var amount = Math.max(0, calculateAmount(value.slice(NAME_POSITION + 1)));
 
     if (data) {
-      data.amount += calculateAmount(value.slice(NAME_POSITION + 1));
+      data.amount += amount;
     } else {
       students[index + 1] = {
         name: value[NAME_POSITION],
-        amount: calculateAmount(value.slice(NAME_POSITION + 1))
+        amount: amount
       };
     }
   });
@@ -35,18 +36,29 @@ function requestAndCollectData(link, students) {
         var div = document.createElement('div');
         div.innerHTML = responseText;
 
-        resolve(calculateAmountOverStudents(div, students));
+        if (link.text == '>>') {
+          return processPages(div, students)
+        } else {
+          return calculateAmountOverStudents(div, students);
+        }
+      }).then(function(students) {
+        resolve(students)
       });
   })
 }
 
 function collectData() {
   var students = [{ name: "Имя Ученика, Количество Оценок", amount: 0, type: "header" }];
+  return processPages(document, students);
+}
+
+function processPages(container, students) {
   var promise = new Promise(function(resolve, reject) {
-    resolve(calculateAmountOverStudents(document, students));
+    resolve(calculateAmountOverStudents(container, students));
   });
 
-  document.querySelectorAll(".pages a").forEach(function(link) {
+  container.querySelectorAll(".pages a").forEach(function(link) {
+    if (link.text === '<<') return;
     promise = promise.then(function() { return requestAndCollectData(link, students) });
   });
 
